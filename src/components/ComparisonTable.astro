@@ -1,0 +1,74 @@
+---
+import products from '../data/products.json';
+---
+<section class="section section--alt" id="comparatie">
+  <div class="container">
+    <span class="section-label">Tabel comparativ</span>
+    <h2 class="section-title">Toate cele 17 frigidere, comparate direct</h2>
+    <p class="section-subtitle">Capacitate, tip racire, clasa energetica – totul intr-un singur loc, fara sa tot dai click intre pagini.</p>
+    <p class="section-intro">Tabelul e util cand ai restrans optiunile la 2-3 modele si vrei sa le compari rapid. Fiecare rand duce direct la oferta din magazin cu un singur click.</p>
+
+    <div class="table-wrap table-desktop">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Capacitate</th>
+            <th>Racire</th>
+            <th>Clasa</th>
+            <th>Consum</th>
+            <th>Zgomot</th>
+            <th>Dimensiuni</th>
+            <th>Oferta</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(p => (
+            <tr>
+              <td><strong>{p.name}</strong></td>
+              <td>{p.capacity}</td>
+              <td>{p.coolingType}</td>
+              <td>{p.energyClass}</td>
+              <td>{p.consumption}</td>
+              <td>{p.noiseLevel}</td>
+              <td>{p.height} × {p.width}</td>
+              <td><a href={`/out/${p.id}`} class="table-link" target="_blank" rel="nofollow noopener sponsored">Vezi oferta &rarr;</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="compare-cards table-mobile">
+      {products.map(p => (
+        <div class="compare-card">
+          <div class="compare-card-top">
+            <div class="compare-card-name">{p.name}</div>
+            <a href={`/out/${p.id}`} class="btn btn-primary btn-sm compare-card-btn" target="_blank" rel="nofollow noopener sponsored">Oferta</a>
+          </div>
+          <div class="compare-card-specs">
+            <span>{p.capacity}</span>
+            <span>{p.coolingType}</span>
+            <span>Clasa {p.energyClass}</span>
+            <span>{p.consumption}</span>
+            <span>{p.noiseLevel}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .table-mobile{display:none}
+  @media(max-width:768px){
+    .table-desktop{display:none!important}
+    .table-mobile{display:flex;flex-direction:column;gap:.5rem}
+    .compare-card{background:var(--c-surface-raised);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:.85rem 1rem}
+    .compare-card-top{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.5rem}
+    .compare-card-name{font-weight:700;font-size:.88rem;color:var(--c-text);line-height:1.3}
+    .compare-card-btn{flex-shrink:0;padding:.4rem .85rem;font-size:.75rem}
+    .compare-card-specs{display:flex;gap:.5rem;flex-wrap:wrap}
+    .compare-card-specs span{font-size:.73rem;color:var(--c-text-light);background:var(--c-surface);padding:.15rem .5rem;border-radius:100px}
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+const faqs = [
+  {
+    q: 'Care este cel mai ieftin frigider bun din Romania?',
+    a: 'Depinde de nevoi, dar modelele Arctic si Heinner din gama entry-level ofera cel mai bun raport calitate-pret. Un frigider Arctic cu 250-300 litri se gaseste frecvent sub 1.300 RON si este o alegere solida pentru majoritatea familiilor.',
+  },
+  {
+    q: 'Merita sa cumpar un frigider No Frost ieftin?',
+    a: 'Da, daca bugetul permite. Un frigider No Frost elimina necesitatea degivrarii manuale, pastreaza alimentele mai uniform racite si reduce formarea de gheata. Diferenta de pret fata de modelele statice s-a redus mult in ultimii ani.',
+  },
+  {
+    q: 'Ce capacitate are nevoie un frigider pentru 2 persoane?',
+    a: 'Pentru doua persoane, un frigider cu 200–280 litri este ideal. Daca faci cumparaturi des, poti merge si pe un model mai mic. Daca preferi sa faci provizii, alege spre limita superioara.',
+  },
+  {
+    q: 'Ce inseamna clasa energetica E sau F la un frigider?',
+    a: 'Dupa rescalarea etichetelor energetice din 2021, clasele E si F sunt echivalentul fostelor clase A+ si A. Sunt normale pentru frigiderele accesibile si ofera un consum rezonabil pentru pretul platit.',
+  },
+  {
+    q: 'Cat curent consuma un frigider ieftin pe luna?',
+    a: 'Un frigider din clasa E consuma in medie 250–300 kWh/an, adica aproximativ 20–25 kWh pe luna. La pretul curent al energiei, asta inseamna cam 15–25 RON pe luna, in functie de furnizor si tarif.',
+  },
+  {
+    q: 'Pot pune un frigider mic pe balcon sau in garaj?',
+    a: 'Tehnic da, dar nu este recomandat. Temperaturile extreme (sub 10°C iarna sau peste 35°C vara) afecteaza functionarea compresorului si pot reduce durata de viata a aparatului. Verifica intervalul de temperatura ambientala specificat de producator.',
+  },
+  {
+    q: 'Ce diferenta este intre un frigider static si unul No Frost?',
+    a: 'La un frigider static, aerul rece se distribuie natural, iar gheata se acumuleaza in timp si trebuie indepartata manual. La un model No Frost, un ventilator distribuie aerul uniform si previne formarea ghetii. No Frost este mai confortabil, dar poate fi usor mai zgomotos.',
+  },
+  {
+    q: 'Care sunt cele mai fiabile branduri de frigidere ieftine?',
+    a: 'Arctic este lider pe piata din Romania pentru raportul calitate-pret si disponibilitatea pieselor de schimb. Beko, Whirlpool si Samsung au de asemenea modele entry-level fiabile. Heinner si Vortex sunt bune pentru buget foarte redus.',
+  },
+];
+---
+<section class="section section--alt" id="faq">
+  <div class="container">
+    <span class="section-label">FAQ</span>
+    <h2 class="section-title">Ce vor sa stie oamenii despre frigiderele ieftine</h2>
+    <p class="section-subtitle">Raspunsuri scurte la intrebarile care apar cel mai des inainte de o achizitie.</p>
+    <p class="section-intro">Daca ti-ai pus vreuna din intrebarile de mai jos, nu esti singurul. Le-am adunat din comentarii, forumuri si mesaje primite direct, si le-am dat raspunsuri pe scurt, fara teorie inutila.</p>
+    <div class="faq-list">
+      {faqs.map((faq, i) => (
+        <div class="faq-item">
+          <div class="faq-q" role="button" tabindex="0" aria-expanded="false" data-faq>{faq.q}</div>
+          <div class="faq-a"><p>{faq.a}</p></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-faq]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement!;
+      const isOpen = item.classList.contains('open');
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+</script>

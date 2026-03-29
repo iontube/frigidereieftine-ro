@@ -1,0 +1,7 @@
+name = "frigidereieftine-ro"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-01-01"
+
+[[kv_namespaces]]
+binding = "RATING"
+id = "8aadb74303944b418f58b5bb5176c741"

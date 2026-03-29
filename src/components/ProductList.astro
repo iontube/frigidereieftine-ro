@@ -1,0 +1,15 @@
+---
+import ProductCard from './ProductCard.astro';
+import products from '../data/products.json';
+---
+<section class="section" id="produse">
+  <div class="container">
+    <span class="section-label">17 frigidere analizate</span>
+    <h2 class="section-title">Cele mai bune frigidere ieftine din 2026</h2>
+    <p class="section-subtitle">Fiecare model de aici a fost verificat pe specificatii, consum si pareri reale. Nimic sponsorizat, nimic la noroc.</p>
+    <p class="section-intro">Am inclus frigidere de la branduri precum Arctic, Beko, Samsung, LG, Bosch, Heinner si Star-Light – de la modele compacte pentru garsoniera la frigidere No Frost cu peste 500 de litri. Indiferent de buget sau de spatiul din bucatarie, cel putin un model din lista asta ti se potriveste.</p>
+    <div class="products-grid">
+      {products.map((product, i) => <ProductCard product={product} eager={i < 3} />)}
+    </div>
+  </div>
+</section>

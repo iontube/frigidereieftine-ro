@@ -1,0 +1,167 @@
+---
+import products from '../data/products.json';
+import reviews from '../data/reviews.json';
+
+const reviewData = reviews as Record<string, {
+  title: string;
+  summary: string;
+  content: string;
+  highlights?: string[];
+  pros: string[];
+  cons: string[];
+  verdict: string;
+}>;
+---
+<section class="section section--alt" id="review-uri">
+  <div class="container">
+    <span class="section-label">Model cu model</span>
+    <h2 class="section-title">Fiecare frigider trecut prin lupa</h2>
+    <p class="section-subtitle">Ce face bine, unde taie din colturi si pentru cine are sens – pe fiecare model in parte.</p>
+    <p class="section-intro">Nu ne-am rezumat la specificatiile de pe cutie. Am verificat ce tehnologii conteaza cu adevarat in practica, ce inseamna fiecare clasa energetica pentru factura ta de curent si ce spun oamenii care le folosesc zilnic. Fiecare analiza include avantaje, dezavantaje si un verdict clar.</p>
+
+    {products.map(product => {
+      const review = reviewData[product.id];
+      if (!review) return null;
+      return (
+        <article class="review" id={`review-${product.id}`}>
+          <div class="review-header">
+            <div class="review-img">
+              <img
+                src={product.localImage}
+                alt={product.name}
+                width="180"
+                height="135"
+                loading="lazy"
+              />
+            </div>
+            <div class="review-intro">
+              <h3>{review.title}</h3>
+              <p class="review-summary">{review.summary}</p>
+              <div class="review-specs">
+                <div class="review-spec"><span class="spec-label">Capacitate</span><span class="spec-value">{product.capacity}</span></div>
+                <div class="review-spec"><span class="spec-label">Racire</span><span class="spec-value">{product.coolingType}</span></div>
+                <div class="review-spec"><span class="spec-label">Clasa</span><span class="spec-value">{product.energyClass}</span></div>
+                <div class="review-spec"><span class="spec-label">Zgomot</span><span class="spec-value">{product.noiseLevel}</span></div>
+                <div class="review-spec"><span class="spec-label">Consum</span><span class="spec-value">{product.consumption}</span></div>
+                <div class="review-spec"><span class="spec-label">Dimensiuni</span><span class="spec-value">{product.height} × {product.width}</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-body">
+            {review.content.split('\n\n').map(paragraph => (
+              <p set:html={paragraph} />
+            ))}
+          </div>
+
+          {review.highlights && (
+            <div class="review-highlights">
+              <h4 class="review-highlights-title">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1l2 5h5l-4 3.5 1.5 5L8 11.5 3.5 14.5 5 9.5 1 6h5z" fill="#f59e0b"/></svg>
+                De retinut
+              </h4>
+              <ul>
+                {review.highlights.map(h => <li>{h}</li>)}
+              </ul>
+            </div>
+          )}
+
+          <div class="review-proscons">
+            <div class="review-pros">
+              <div class="proscons-header">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#dcfce7"/><path d="M5.5 9.5l2 2 5-5" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <h4>Ce ne-a placut</h4>
+              </div>
+              <ul>
+                {review.pros.map(pro => <li>{pro}</li>)}
+              </ul>
+            </div>
+            <div class="review-cons">
+              <div class="proscons-header">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#fee2e2"/><path d="M6.5 6.5l5 5M11.5 6.5l-5 5" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <h4>Unde face compromisuri</h4>
+              </div>
+              <ul>
+                {review.cons.map(con => <li>{con}</li>)}
+              </ul>
+            </div>
+          </div>
+
+          <div class="review-verdict">
+            <div class="review-verdict-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#0f766e"/><path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="review-verdict-text">
+              <span class="review-verdict-label">Pe scurt</span>
+              {review.verdict}
+            </div>
+          </div>
+
+          <div class="review-cta">
+            <a href={`/out/${product.id}`} class="btn btn-cta btn-cta-lg" target="_blank" rel="nofollow noopener sponsored">
+              <span>Verifica disponibilitate si pret</span>
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .review{background:var(--c-surface-raised);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:2rem;margin-bottom:1.5rem;transition:all .2s var(--transition)}
+  .review:hover{box-shadow:var(--shadow)}
+  .review-header{display:flex;gap:1.75rem;margin-bottom:1.75rem;align-items:flex-start}
+  .review-img{flex-shrink:0;width:200px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:1.25rem}
+  .review-img img{max-height:180px;object-fit:contain}
+  .review-intro{flex:1}
+  .review-intro h3{font-size:1.15rem;margin-bottom:.5rem;border-left:none;padding-left:0}
+  .review-summary{color:var(--c-text-light);font-size:.92rem;margin-bottom:.75rem;font-style:italic;line-height:1.6}
+  .review-specs{display:flex;gap:.4rem;flex-wrap:wrap}
+  .review-spec{display:flex;flex-direction:column;padding:.45rem .75rem;background:var(--c-surface-raised);border:1px solid var(--c-border);border-radius:var(--radius-sm)}
+  .spec-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--c-text-light);line-height:1}
+  .spec-value{font-size:.82rem;font-weight:600;color:var(--c-text);line-height:1.3;margin-top:.15rem}
+  .review-body{margin-bottom:1.75rem;line-height:1.85}
+  .review-body p{margin-bottom:1rem;color:var(--c-text-mid)}
+  .review-highlights{background:var(--c-accent-light);border:1px solid #fed7aa;border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem}
+  .review-highlights-title{display:flex;align-items:center;gap:.4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:#b45309;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #fed7aa}
+  .review-highlights ul{list-style:none;padding:0;margin:0}
+  .review-highlights li{font-size:.88rem;color:var(--c-text-mid);padding:.3rem 0 .3rem 1.4rem;position:relative;line-height:1.55}
+  .review-highlights li::before{content:'→';position:absolute;left:0;top:.25rem;color:#d97706;font-weight:700;font-size:.85rem}
+  .review-proscons{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.75rem}
+  .review-pros,.review-cons{border-radius:var(--radius);padding:1.25rem;border:1px solid var(--c-border)}
+  .review-pros{background:linear-gradient(160deg,#f0fdf4,#fff)}
+  .review-cons{background:linear-gradient(160deg,#fef2f2,#fff)}
+  .proscons-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;padding-bottom:.65rem;border-bottom:1px solid var(--c-border)}
+  .proscons-header svg{flex-shrink:0}
+  .review-pros h4,.review-cons h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin:0}
+  .review-pros h4{color:#16a34a}
+  .review-cons h4{color:#dc2626}
+  .review-pros ul,.review-cons ul{list-style:none;padding:0}
+  .review-pros li,.review-cons li{font-size:.88rem;color:var(--c-text-mid);padding:.35rem 0 .35rem 1.4rem;position:relative;line-height:1.5}
+  .review-pros li::before{content:'+';position:absolute;left:0;top:.25rem;color:#16a34a;font-weight:800;font-size:.95rem}
+  .review-cons li::before{content:'–';position:absolute;left:.1rem;top:.25rem;color:#dc2626;font-weight:800;font-size:.95rem}
+  .review-verdict{display:flex;gap:1rem;align-items:flex-start;background:linear-gradient(135deg,#f0fdfa 0%,#f5f5f4 100%);padding:1.25rem 1.4rem;border-radius:var(--radius);margin-bottom:1.25rem}
+  .review-verdict-icon{flex-shrink:0;margin-top:.15rem}
+  .review-verdict-label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--c-primary);margin-bottom:.3rem}
+  .review-verdict-text{font-size:.93rem;color:var(--c-text-mid);line-height:1.7}
+  .review-cta{text-align:center}
+  @media(max-width:768px){
+    .review{padding:1.15rem;margin-bottom:1rem;border-radius:var(--radius)}
+    .review-header{flex-direction:column;align-items:flex-start;text-align:left;gap:.75rem;margin-bottom:1.25rem}
+    .review-img{width:100%;padding:1rem;border-radius:var(--radius-sm)}
+    .review-img img{max-height:160px;margin:0 auto}
+    .review-intro h3{font-size:1.05rem;margin-bottom:.35rem}
+    .review-summary{font-size:.84rem;margin-bottom:.5rem;display:none}
+    .review-specs{gap:.3rem}
+    .review-spec{font-size:.7rem;padding:.2rem .5rem}
+    .review-body{margin-bottom:1.25rem}
+    .review-body p{font-size:.88rem;line-height:1.7}
+    .review-proscons{grid-template-columns:1fr;gap:.75rem;margin-bottom:1.25rem}
+    .review-pros,.review-cons{padding:1rem}
+    .review-pros h4,.review-cons h4{font-size:.78rem}
+    .review-pros li,.review-cons li{font-size:.84rem}
+    .review-verdict{padding:.9rem 1rem;font-size:.88rem}
+  }
+</style>

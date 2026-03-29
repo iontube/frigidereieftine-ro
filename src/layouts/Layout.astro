@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const { title, description, canonical = Astro.url.href, noindex = false } = Astro.props;
+const siteName = 'frigidereieftine.ro';
+const ogImage = `${Astro.site}assets/images/og-cover.webp`;
+const now = new Date().toISOString();
+---
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"}>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content="article">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:site_name" content={siteName}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:image:width" content="1536">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:locale" content="ro_RO">
+  <meta property="article:published_time" content="2026-01-15T08:00:00+02:00">
+  <meta property="article:modified_time" content={now}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage}>
+</head>
+<body>
+  <a href="#continut-principal" class="skip-link">Sari la continut</a>
+  <slot />
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consimtamant cookies">
+    <div class="cookie-banner-inner">
+      <p>Folosim cookies pentru a analiza traficul si a imbunatati experienta pe site. Continuand navigarea, esti de acord cu <a href="/politica-cookies" rel="nofollow">politica noastra de cookies</a>.</p>
+      <div class="cookie-banner-actions">
+        <button class="btn btn-primary btn-sm" id="cookieAccept">Accept</button>
+        <button class="btn btn-outline btn-sm" id="cookieDecline">Refuz</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const banner = document.getElementById('cookieBanner');
+    if (banner && !localStorage.getItem('cookie-consent')) {
+      banner.classList.add('is-visible');
+    }
+    document.getElementById('cookieAccept')?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+      banner?.classList.remove('is-visible');
+    });
+    document.getElementById('cookieDecline')?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'declined');
+      banner?.classList.remove('is-visible');
+    });
+  </script>
+</body>
+</html>
+
+<style is:global>
+  .skip-link{position:absolute;top:-100%;left:1rem;padding:.5rem 1rem;background:var(--c-primary);color:#fff;border-radius:0 0 var(--radius-sm) var(--radius-sm);font-size:.85rem;font-weight:600;z-index:999;transition:top .2s}
+  .skip-link:focus{top:0;color:#fff}
+  .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:300;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:none}
+  .cookie-banner.is-visible{transform:translateY(0);pointer-events:auto}
+  .cookie-banner-inner{max-width:520px;margin:0 auto .75rem;background:var(--c-surface-raised,#fff);border:1px solid var(--c-border,#e7e5e4);border-radius:100px;padding:.55rem .65rem .55rem 1.25rem;box-shadow:0 2px 16px rgba(28,25,23,.1);display:flex;align-items:center;gap:.75rem}
+  .cookie-banner-inner p{flex:1;margin:0;font-size:.78rem;color:var(--c-text-light,#57534e);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cookie-banner-inner a{color:var(--c-primary,#0f766e)}
+  .cookie-banner-actions{display:flex;gap:.35rem;flex-shrink:0}
+  @media(max-width:580px){.cookie-banner-inner{border-radius:var(--radius,12px);margin:.5rem;padding:.7rem 1rem;flex-wrap:wrap}.cookie-banner-inner p{white-space:normal;font-size:.76rem}.cookie-banner-actions{width:100%;justify-content:flex-end}}
+</style>

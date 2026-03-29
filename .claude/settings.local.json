@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL -o /Users/luc/Moneysites/frigidereieftine.ro/public/assets/images/products/arctic-atf906sn.jpg \"https://s13emagst.akamaized.net/products/72026/72025035/images/res_8a07811a359b31778ada213668cfa209.jpg?width=720&height=720&hash=D51D2407E45A476576F0E442B54C2AC6\")",
+      "Bash(curl -sL -o t.jpg \"https://s13emagst.akamaized.net/products/72026/72025035/images/res_8a07811a359b31778ada213668cfa209.jpg?width=720&height=720\")",
+      "Bash(cwebp -q 80 t.jpg -o frigider-cu-o-usa-arctic-atf906sn.webp)",
+      "Bash(curl -sL -o t.jpg \"https://s13emagst.akamaized.net/products/81741/81740640/images/res_c47d8a11ea33d9973a8b996f36b00065.jpg?width=720&height=720\")",
+      "Bash(cwebp -q 80 t.jpg -o frigider-cu-doua-usi-samsung-rt53dg7a14s9eo.webp)",
+      "Bash(curl -sL -o t.jpg \"https://s13emagst.akamaized.net/products/53643/53642701/images/res_5ce6496135995ce05f4f61ed5cd677e8.jpg?width=720&height=720\")"
+    ]
+  }
+}

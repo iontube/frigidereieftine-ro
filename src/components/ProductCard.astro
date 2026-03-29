@@ -1,0 +1,54 @@
+---
+interface Props {
+  product: {
+    id: string;
+    name: string;
+    affiliateUrl: string;
+    localImage: string;
+    features: string[];
+    badge?: string;
+  };
+  eager?: boolean;
+}
+
+const { product, eager = false } = Astro.props;
+
+const badgeClassMap: Record<string, string> = {
+  'Best Buy': 'badge-best',
+  'Cel mai ieftin': 'badge-cheap',
+  'No Frost': 'badge-nofrost',
+  'Potrivit pentru garsoniera': 'badge-garsoniera',
+  'Consum bun': 'badge-consum',
+};
+
+const badgeClass = product.badge ? badgeClassMap[product.badge] || 'badge-best' : '';
+---
+<article class="product-card">
+  <div class="product-card-img">
+    <img
+      src={product.localImage}
+      alt={`${product.name} – frigider ieftin`}
+      width="280"
+      height="210"
+      loading={eager ? "eager" : "lazy"}
+      onerror="this.style.display='none';this.parentElement.innerHTML='<div class=img-placeholder>Imagine indisponibila</div>'"
+    />
+  </div>
+  <div class="product-card-body">
+    {product.badge && (
+      <div class="product-card-badge">
+        <span class={`badge ${badgeClass}`}>{product.badge}</span>
+      </div>
+    )}
+    <h3 class="product-card-name">{product.name}</h3>
+    <ul class="product-card-features">
+      {product.features.map(f => <li>{f}</li>)}
+    </ul>
+    <div class="product-card-cta">
+      <a href={`/out/${product.id}`} class="btn btn-cta" target="_blank" rel="nofollow noopener sponsored">
+        <span>Vezi oferta</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</article>

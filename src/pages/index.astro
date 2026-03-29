@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import ProductList from '../components/ProductList.astro';
+import ProductReviews from '../components/ProductReviews.astro';
+import Rating from '../components/Rating.astro';
+import BuyingGuide from '../components/BuyingGuide.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import SubCategories from '../components/SubCategories.astro';
+import FAQ from '../components/FAQ.astro';
+import Conclusion from '../components/Conclusion.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+
+const title = 'Cele mai bune frigidere ieftine 2026 – comparatii si modele testate';
+const description = 'Cele mai bune frigidere ieftine din 2026: comparatii reale, cel mai bun No Frost la pret mic, modele accesibile si optiuni pentru orice buget.';
+---
+<Layout title={title} description={description}>
+  <SchemaMarkup />
+  <Navigation />
+  <header>
+    <Hero />
+  </header>
+  <main id="continut-principal">
+    <ProductList />
+    <ProductReviews />
+    <Rating />
+    <BuyingGuide />
+    <ComparisonTable />
+    <SubCategories />
+    <FAQ />
+    <Conclusion />
+  </main>
+  <footer>
+    <Footer />
+  </footer>
+</Layout>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "slug-unic-produs",
+    "name": "Numele Complet al Produsului",
+    "price": 1299,
+    "currency": "RON",
+    "affiliateUrl": "https://www.emag.ro/produs-xyz/pd/ABCDEF/?ref=aff123",
+    "imageUrl": "https://www.emag.ro/images/produs-xyz.jpg",
+    "localImage": "/assets/images/products/slug-unic-produs.webp",
+    "capacity": "306 litri",
+    "coolingType": "Static",
+    "energyClass": "E",
+    "height": "185 cm",
+    "features": [
+      "Caracteristica principala 1",
+      "Caracteristica principala 2",
+      "Caracteristica principala 3",
+      "Caracteristica principala 4",
+      "Caracteristica principala 5"
+    ],
+    "badge": "Best Buy",
+    "subcategories": ["buget", "nofrost", "garsoniera", "mic"]
+  },
+  {
+    "id": "alt-produs-exemplu",
+    "name": "Alt Produs Exemplu 250F",
+    "price": 1549,
+    "currency": "RON",
+    "affiliateUrl": "https://www.emag.ro/alt-produs/pd/XYZABC/?ref=aff123",
+    "imageUrl": "https://www.emag.ro/images/alt-produs.jpg",
+    "localImage": "/assets/images/products/alt-produs-exemplu.webp",
+    "capacity": "250 litri",
+    "coolingType": "No Frost",
+    "energyClass": "F",
+    "height": "175 cm",
+    "features": [
+      "No Frost complet",
+      "Silentios 38 dB",
+      "Design modern"
+    ],
+    "badge": "No Frost",
+    "subcategories": ["nofrost"]
+  }
+]

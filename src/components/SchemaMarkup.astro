@@ -1,0 +1,151 @@
+---
+import products from '../data/products.json';
+import rating from '../data/rating.json';
+
+const siteUrl = 'https://frigidereieftine.ro';
+const now = new Date().toISOString();
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'frigidereieftine.ro',
+  url: siteUrl,
+  description: 'Cele mai bune frigidere ieftine din Romania – comparatii, analize si recomandari actualizate',
+  inLanguage: 'ro',
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'frigidereieftine.ro',
+  url: siteUrl,
+  logo: `${siteUrl}/assets/images/logo-frigidereieftine.webp`,
+  description: 'Site independent de comparatii si recomandari de frigidere ieftine din Romania',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'contact@frigidereieftine.ro',
+    contactType: 'customer service',
+    availableLanguage: 'Romanian',
+  },
+  sameAs: [],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: rating.avg,
+    bestRating: '5',
+    worstRating: '1',
+    ratingCount: String(rating.count),
+  },
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Cele mai bune frigidere ieftine 2026 – 17 modele comparate',
+  description: 'Cele mai bune frigidere ieftine din 2026: comparatii reale, cel mai bun No Frost la pret mic, modele accesibile si optiuni pentru orice buget.',
+  image: `${siteUrl}/assets/images/og-cover.webp`,
+  datePublished: '2026-01-15T08:00:00+02:00',
+  dateModified: now,
+  url: siteUrl,
+  inLanguage: 'ro',
+  author: {
+    '@type': 'Person',
+    name: 'Echipa frigidereieftine.ro',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'frigidereieftine.ro',
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/favicon.svg`,
+    },
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Acasa',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Cele mai bune frigidere ieftine 2026',
+      item: siteUrl,
+    },
+  ],
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cele mai bune frigidere ieftine recomandate',
+  numberOfItems: products.length,
+  itemListElement: products.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: p.name,
+    url: `${siteUrl}/#review-${p.id}`,
+  })),
+};
+
+const faqs = [
+  {
+    q: 'Care este cel mai ieftin frigider bun din Romania?',
+    a: 'Depinde de nevoi, dar modelele Arctic si Heinner din gama entry-level ofera cel mai bun raport calitate-pret. Un frigider Arctic cu 250-300 litri se gaseste frecvent sub 1.300 RON si este o alegere solida pentru majoritatea familiilor.',
+  },
+  {
+    q: 'Merita sa cumpar un frigider No Frost ieftin?',
+    a: 'Da, daca bugetul permite. Un frigider No Frost elimina necesitatea degivrarii manuale, pastreaza alimentele mai uniform racite si reduce formarea de gheata. Diferenta de pret fata de modelele statice s-a redus mult in ultimii ani.',
+  },
+  {
+    q: 'Ce capacitate are nevoie un frigider pentru 2 persoane?',
+    a: 'Pentru doua persoane, un frigider cu 200–280 litri este ideal. Daca faci cumparaturi des, poti merge si pe un model mai mic. Daca preferi sa faci provizii, alege spre limita superioara.',
+  },
+  {
+    q: 'Ce inseamna clasa energetica E sau F la un frigider?',
+    a: 'Dupa rescalarea etichetelor energetice din 2021, clasele E si F sunt echivalentul fostelor clase A+ si A. Sunt normale pentru frigiderele accesibile si ofera un consum rezonabil pentru pretul platit.',
+  },
+  {
+    q: 'Cat curent consuma un frigider ieftin pe luna?',
+    a: 'Un frigider din clasa E consuma in medie 250–300 kWh/an, adica aproximativ 20–25 kWh pe luna. La pretul curent al energiei, asta inseamna cam 15–25 RON pe luna, in functie de furnizor si tarif.',
+  },
+  {
+    q: 'Pot pune un frigider mic pe balcon sau in garaj?',
+    a: 'Tehnic da, dar nu este recomandat. Temperaturile extreme afecteaza functionarea compresorului si pot reduce durata de viata a aparatului.',
+  },
+  {
+    q: 'Ce diferenta este intre un frigider static si unul No Frost?',
+    a: 'La un frigider static, aerul rece se distribuie natural, iar gheata se acumuleaza in timp. La un model No Frost, un ventilator distribuie aerul uniform si previne formarea ghetii.',
+  },
+  {
+    q: 'Care sunt cele mai fiabile branduri de frigidere ieftine?',
+    a: 'Arctic este lider pe piata din Romania pentru raportul calitate-pret. Beko, Whirlpool si Samsung au de asemenea modele entry-level fiabile.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.a,
+    },
+  })),
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

@@ -1,0 +1,46 @@
+---
+import ProductCard from './ProductCard.astro';
+import products from '../data/products.json';
+
+const subcategories = [
+  {
+    id: 'mic',
+    title: 'Cele mai bune frigidere mici ieftine',
+    intro: 'Daca locuiesti singur sau intr-o garsoniera, un frigider mic este solutia ideala. Ocupa putin loc, consuma putin curent si este suficient pentru nevoile zilnice ale unei persoane. Iata cele mai bune optiuni la pret redus.',
+    filter: (p: any) => p.subcategories?.includes('mic') || p.subcategories?.includes('garsoniera'),
+  },
+  {
+    id: 'nofrost',
+    title: 'Cel mai bun frigider No Frost ieftin',
+    intro: 'Tehnologia No Frost elimina formarea de gheata si necesitatea degivrarii. Chiar si la preturi accesibile, exista modele No Frost cu performante foarte bune. Am selectat cele mai bune frigidere No Frost la pret accesibil.',
+    filter: (p: any) => p.subcategories?.includes('nofrost'),
+  },
+  {
+    id: 'buget',
+    title: 'Frigidere ieftine la pret redus',
+    intro: 'Cauti un frigider cu adevarat accesibil? Exista optiuni surprinzator de bune in segmentul entry-level, mai ales de la branduri precum Arctic, Heinner sau Star-Light. Verifica pretul actualizat direct pe site-ul magazinului.',
+    filter: (p: any) => p.subcategories?.includes('buget'),
+  },
+];
+---
+<section class="section" id="categorii">
+  <div class="container">
+    <span class="section-label">Alege dupa situatie</span>
+    <h2 class="section-title">Frigidere ieftine pe categorii – gaseste ce ti se potriveste</h2>
+    <p class="section-subtitle">Garsoniera, No Frost sau buget minim? Am grupat modelele ca sa nu mai stai sa le filtrezi singur.</p>
+    <p class="section-intro">Daca stii deja ce cauti, sari direct la categoria ta. Fiecare include doar modelele relevante din selectia completa, cu aceleasi specificatii si linkuri.</p>
+
+    {subcategories.map(sub => {
+      const filtered = products.filter(sub.filter);
+      return filtered.length > 0 ? (
+        <div class="subcat" id={`cat-${sub.id}`}>
+          <h3>{sub.title}</h3>
+          <p class="subcat-intro">{sub.intro}</p>
+          <div class="subcat-grid">
+            {filtered.map(product => <ProductCard product={product} />)}
+          </div>
+        </div>
+      ) : null;
+    })}
+  </div>
+</section>
