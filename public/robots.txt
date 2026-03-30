@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://frigidereieftine.ro/sitemap-index.xml
+Sitemap: https://frigidereieftine.ro/sitemap.xml
