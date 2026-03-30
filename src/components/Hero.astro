@@ -1,8 +1,11 @@
 ---
+const now = new Date();
+const updated = now.toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' });
+const isoDate = now.toISOString().split('T')[0];
 ---
 <section class="hero">
   <div class="container">
-    <span class="section-label"><time datetime="2026-03">Actualizat martie 2026</time></span>
+    <span class="section-label"><time datetime={isoDate}>Actualizat {updated}</time></span>
     <h1>Cele mai bune frigidere ieftine &ndash; 17 modele comparate</h1>
     <p>Cauti un frigider ieftin si bun? Am analizat 17 modele de frigidere la pret mic, de la cele mai ieftine frigidere sub 1.000 RON pana la cel mai bun frigider No Frost accesibil. Comparatii reale, fara clasamente platite.</p>
     <div class="hero-actions">
