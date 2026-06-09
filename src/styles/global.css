@@ -237,3 +237,65 @@ td strong{color:var(--c-text);font-weight:600}
   .nav{padding:.65rem 0}
   .nav-brand img{height:36px}
 }
+
+/* ===== fridges feed catalog (tier-3): oferte / frigider / brand / magazin ===== */
+button.btn-cta,button.offer-btn,button.po-cta{border:none;cursor:pointer;font-family:inherit;-webkit-appearance:none;appearance:none}
+.fr-sec{padding-top:calc(72px + 1.4rem)}
+.crumb{font-size:.82rem;color:var(--c-text-light);margin-bottom:1rem}
+.crumb a{color:var(--c-primary)}.crumb a:hover{text-decoration:underline}
+.fr-sec .section-label{margin-bottom:.5rem}
+.fr-sec .section-title{margin-bottom:.6rem}
+.section-intro{color:var(--c-text-mid);font-size:.95rem;line-height:1.65;max-width:760px;margin-bottom:1.6rem}
+.fc{position:relative;display:flex;flex-direction:column}
+.fc .product-card-img{position:relative;display:flex;align-items:center;justify-content:center;padding:1rem;background:#fff}
+.fc .product-card-img img{max-width:100%;height:200px;object-fit:contain}
+.fc-badge{position:absolute;top:.6rem;right:.6rem;z-index:2;background:var(--c-accent);color:#fff;font-size:.72rem;font-weight:700;padding:.2rem .55rem;border-radius:50px}
+.fc-foot{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;margin:.4rem 0 .8rem}
+.fc-price{font-size:1.15rem;font-weight:800;color:var(--c-text)}
+.fc-price s{font-size:.8rem;color:var(--c-text-light);font-weight:400;margin-left:.35rem}
+.fc-from{font-size:.7rem;font-weight:600;color:var(--c-text-light);margin-right:.25rem}
+.fc-offers{font-size:.72rem;color:var(--c-primary);font-weight:700;white-space:nowrap}
+.po{display:grid;grid-template-columns:1fr;gap:1.5rem;background:var(--c-surface-raised);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.8rem}
+.po-media{background:#fff;border:1px solid var(--c-border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;padding:1.25rem;min-height:280px}
+.po-media img{max-width:100%;max-height:380px;object-fit:contain}
+.po-tags{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+.po-brand{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--c-primary);font-weight:800;text-decoration:none}
+a.po-brand:hover{text-decoration:underline}
+.po-type{font-size:.7rem;font-weight:700;color:var(--c-text-light);background:var(--c-surface);padding:.2rem .55rem;border-radius:50px}
+.po-h1{font-size:clamp(1.2rem,3vw,1.6rem);line-height:1.25;color:var(--c-text);margin-bottom:.7rem}
+.po-price{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;margin-bottom:.5rem}
+.po-from{font-size:.85rem;color:var(--c-text-light)}
+.po-now{font-size:1.9rem;font-weight:800;color:var(--c-text)}
+.po-price s{color:var(--c-text-light)}
+.po-off{background:var(--c-accent);color:#fff;font-weight:700;font-size:.78rem;padding:.15rem .5rem;border-radius:50px}
+.po-stock{color:var(--c-text-mid);font-size:.9rem;margin-bottom:.9rem}
+a.po-merch{color:var(--c-primary)}a.po-merch:hover{text-decoration:underline}
+.po-cta{margin-bottom:.5rem;width:auto}
+.po-note{font-size:.74rem;color:var(--c-text-light)}
+.po-block{margin-bottom:2rem}
+.po-back{margin-top:1.4rem;font-size:.9rem}.po-back a{color:var(--c-primary);font-weight:700}
+@media(min-width:760px){.po{grid-template-columns:420px 1fr}}
+.offers{display:flex;flex-direction:column;gap:.6rem}
+.offer{display:flex;align-items:center;gap:.8rem;background:var(--c-surface-raised);border:1px solid var(--c-border);border-radius:var(--radius);padding:.7rem 1rem;flex-wrap:wrap}
+.offer-shop{font-weight:700;color:var(--c-text);min-width:90px}
+.offer-price{font-weight:800;color:var(--c-text);font-size:1.05rem}
+.offer-price s{font-size:.8rem;color:var(--c-text-light);font-weight:400;margin-left:.4rem}
+.offer-best{font-size:.66rem;font-weight:700;text-transform:uppercase;color:var(--c-success);background:var(--c-primary-light);padding:.15rem .5rem;border-radius:50px}
+.offer-btn{margin-left:auto;background:var(--c-primary);color:#fff;font-weight:700;font-size:.85rem;padding:.55rem 1.1rem;border-radius:var(--radius-sm)}
+.offer-btn:hover{background:var(--c-primary-hover)}
+.spec-tbl{width:100%;border-collapse:collapse;max-width:560px}
+.spec-tbl th,.spec-tbl td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--c-border);font-size:.9rem}
+.spec-tbl th{color:var(--c-text-light);font-weight:600;width:42%}
+.spec-tbl td{color:var(--c-text);font-weight:700}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:.7rem;margin-top:2rem;flex-wrap:wrap}
+.pg{flex:0 0 auto;color:var(--c-primary);font-weight:700;border:1px solid var(--c-border);padding:.55rem 1.1rem;border-radius:50px;text-decoration:none;background:var(--c-surface-raised);font-size:.85rem;transition:.15s}
+.pg:hover{border-color:var(--c-primary);background:var(--c-primary-light)}
+.pg--off{color:var(--c-text-light);opacity:.5;pointer-events:none}
+.pg-now{font-size:.85rem;color:var(--c-text-mid)}
+@media(max-width:560px){.pager{gap:.5rem}.pg-now{order:1;flex-basis:100%;text-align:center}.pg{flex:1;order:2;text-align:center}}
+.hub{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--c-border)}
+.hub-col h2{font-size:1rem;color:var(--c-text);margin-bottom:.7rem}
+.hub-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.hub-row .pg{padding:.4rem .85rem;font-size:.82rem}
+.hub-row .pg span{color:var(--c-text-light);font-weight:500}
+.po-faq .faq-list{max-width:none}

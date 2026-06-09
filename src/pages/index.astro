@@ -12,17 +12,34 @@ import FAQ from '../components/FAQ.astro';
 import Conclusion from '../components/Conclusion.astro';
 import Footer from '../components/Footer.astro';
 import SchemaMarkup from '../components/SchemaMarkup.astro';
+import FridgeCard from '../components/FridgeCard.astro';
+import oferte from '../data/frigidere.json';
 
 const title = 'Cele mai bune frigidere ieftine 2026 – comparatii si modele testate';
 const description = 'Cele mai bune frigidere ieftine din 2026: comparatii reale, cel mai bun No Frost la pret mic, modele accesibile si optiuni pentru orice buget.';
+const ofTotal = oferte.length;
+const topOferte = [...oferte].filter((p) => p.oldPrice).sort((a, b) => (1 - b.price / b.oldPrice) - (1 - a.price / a.oldPrice)).slice(0, 6);
+while (topOferte.length < 6 && oferte[topOferte.length]) topOferte.push(oferte[topOferte.length]);
+const mainModified = topOferte.reduce((m, p) => (p.modified && p.modified > m ? p.modified : m), '2026-04-01');
 ---
-<Layout title={title} description={description}>
-  <SchemaMarkup />
+<Layout title={title} description={description} modified={mainModified}>
+  <SchemaMarkup modified={mainModified} />
   <Navigation />
   <header>
     <Hero />
   </header>
   <main id="continut-principal">
+    {ofTotal > 0 && (
+    <section class="section fr-sec">
+      <div class="container">
+        <span class="section-label">Oferte actualizate</span>
+        <h2 class="section-title">Cele mai bune oferte la frigidere ieftine</h2>
+        <p class="section-intro">{ofTotal} de frigidere sub 1500 lei din magazinele partenere, cu cel mai mic preț pe fiecare model.</p>
+        <div class="products-grid">{topOferte.map((p) => <FridgeCard p={p} />)}</div>
+        <div style="text-align:center;margin-top:1.6rem"><a href="/oferte/" class="btn btn-cta">Vezi toate cele {ofTotal} de frigidere →</a></div>
+      </div>
+    </section>
+    )}
     <ProductList />
     <ProductReviews />
     <Rating />

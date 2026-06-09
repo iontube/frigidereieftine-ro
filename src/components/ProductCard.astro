@@ -45,10 +45,10 @@ const badgeClass = product.badge ? badgeClassMap[product.badge] || 'badge-best' 
       {product.features.map(f => <li>{f}</li>)}
     </ul>
     <div class="product-card-cta">
-      <a href={`/out/${product.id}`} class="btn btn-cta" target="_blank" rel="nofollow noopener sponsored">
+      <button class="btn btn-cta" data-o={Buffer.from(product.id,'utf8').toString('base64')} type="button">
         <span>Vezi oferta</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      </button>
     </div>
   </div>
 </article>

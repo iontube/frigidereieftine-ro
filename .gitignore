@@ -2,3 +2,13 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+
+# server-generated (rebuilt nightly — never commit)
+.cache/
+src/data/frigidere.json
+functions/
+public/sitemap.xml
+public/_redirects
+
+# server-only operational script (CF Global Key — never commit to public repo)
+deploy.sh

@@ -1,11 +1,9 @@
 ---
 const links = [
-  { href: '#produse', label: 'Frigidere' },
-  { href: '#review-uri', label: 'Analize' },
-  { href: '#ghid', label: 'Ce trebuie sa stii' },
-  { href: '#comparatie', label: 'Comparatie' },
-  { href: '#categorii', label: 'Pe categorii' },
-  { href: '#faq', label: 'Intrebari' },
+  { href: '/oferte/', label: 'Toate ofertele' },
+  { href: '/#produse', label: 'Frigidere' },
+  { href: '/#ghid', label: 'Ce trebuie sa stii' },
+  { href: '/#faq', label: 'Intrebari' },
 ];
 ---
 <nav class="nav" aria-label="Navigare principala">
@@ -38,7 +36,7 @@ const links = [
       {links.map(l => <a href={l.href} data-menu-close>{l.label}</a>)}
     </div>
     <div class="mobile-menu-cta">
-      <a href="#produse" class="btn btn-primary" data-menu-close>Arata-mi frigiderele</a>
+      <a href="/oferte/" class="btn btn-primary" data-menu-close>Vezi toate ofertele</a>
     </div>
   </div>
 </div>

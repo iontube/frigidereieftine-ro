@@ -1,0 +1,22 @@
+---
+interface Props { p: any }
+const { p } = Astro.props;
+const money = (n: number) => Number(n).toLocaleString('ro-RO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' lei';
+const off = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+const feats = Object.entries(p.specs).filter(([k]) => k !== 'Brand').slice(0, 3).map(([k, v]) => `${k}: ${v}`);
+---
+<article class="product-card fc">
+  <div class="product-card-img">
+    <a href={`/frigider/${p.slug}/`} aria-label={p.name}><img src={p.img} alt={`${p.name} – frigider ieftin`} width="280" height="210" loading="lazy" decoding="async" /></a>
+    {off > 0 && <span class="fc-badge">-{off}%</span>}
+  </div>
+  <div class="product-card-body">
+    <a href={`/frigider/${p.slug}/`}><h3 class="product-card-name">{p.name}</h3></a>
+    <ul class="product-card-features">{feats.map((f) => <li>{f}</li>)}</ul>
+    <div class="fc-foot">
+      <div class="fc-price">{p.offerCount > 1 && <span class="fc-from">de la</span>}{money(p.price)}{p.oldPrice && <s>{money(p.oldPrice)}</s>}</div>
+      {p.offerCount > 1 && <span class="fc-offers">{p.offerCount} magazine</span>}
+    </div>
+    <div class="product-card-cta"><a href={`/frigider/${p.slug}/`} class="btn btn-cta">Vezi oferta</a></div>
+  </div>
+</article>

@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import FridgeCard from '../../components/FridgeCard.astro';
+import products from '../../data/frigidere.json';
+
+export function getStaticPaths({ paginate }) {
+  const sorted = [...products].sort((a, b) => a.price - b.price);
+  return paginate(sorted, { pageSize: 48 });
+}
+const { page } = Astro.props;
+const total = products.length;
+const pageMod = page.data.reduce((m, p) => (p.modified && p.modified > m ? p.modified : m), '2026-04-01');
+const brandList = Object.values(products.reduce((a, p) => { if (p.brandSlug) { (a[p.brandSlug] ||= { n: p.brand, s: p.brandSlug, c: 0 }).c++; } return a; }, {})).filter((b) => b.c >= 4).sort((a, b) => b.c - a.c).slice(0, 18);
+const merchSet = {}; for (const p of products) for (const o of p.offers) (merchSet[o.merchantSlug] ||= { n: o.merchantName, s: o.merchantSlug, c: 0 }).c++;
+const merchList = Object.values(merchSet).filter((m) => m.c >= 4).sort((a, b) => b.c - a.c);
+const title = page.currentPage === 1 ? `Frigidere ieftine: ${total} oferte sub 1500 lei ${new Date().getFullYear()} | FrigidereIeftine.ro` : `Frigidere ieftine – pagina ${page.currentPage} | FrigidereIeftine.ro`;
+const desc = `Toate frigiderele ieftine din magazinele partenere: ${total} de modele sub 1500 lei — combine, minibaruri, lăzi frigorifice de la Heinner, Arctic, Samus și altele, cu cele mai mici prețuri.${page.currentPage > 1 ? ` Pagina ${page.currentPage}.` : ''}`;
+---
+<Layout title={title} description={desc} modified={pageMod}>
+  <Navigation />
+  <section class="section fr-sec">
+    <div class="container">
+      <nav class="crumb"><a href="/">Acasă</a> › <span>Oferte frigidere</span></nav>
+      <span class="section-label">Oferte</span>
+      <h1 class="section-title">Frigidere ieftine sub 1500 lei</h1>
+      <p class="section-intro"><strong>{total}</strong> de frigidere ieftine din magazinele partenere, cu cel mai mic preț pe fiecare model. Pagina {page.currentPage} din {page.lastPage}.</p>
+      <div class="products-grid">{page.data.map((p) => <FridgeCard p={p} />)}</div>
+      <nav class="pager" aria-label="Paginare">
+        {page.url.prev ? <a class="pg" href={page.url.prev}>← Anterioarele</a> : <span class="pg pg--off">← Anterioarele</span>}
+        <span class="pg-now">Pagina {page.currentPage} / {page.lastPage}</span>
+        {page.url.next ? <a class="pg" href={page.url.next}>Următoarele →</a> : <span class="pg pg--off">Următoarele →</span>}
+      </nav>
+      <div class="hub">
+        <div class="hub-col"><h2>După brand</h2><div class="hub-row">{brandList.map((b) => <a class="pg" href={`/brand/${b.s}/`}>{b.n} <span>({b.c})</span></a>)}</div></div>
+        <div class="hub-col"><h2>După magazin</h2><div class="hub-row">{merchList.map((m) => <a class="pg" href={`/magazin/${m.s}/`}>{m.n} <span>({m.c})</span></a>)}</div></div>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</Layout>

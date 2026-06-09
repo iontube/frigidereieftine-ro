@@ -2,8 +2,10 @@
 import products from '../data/products.json';
 import rating from '../data/rating.json';
 
+interface Props { modified?: string }
+const { modified } = Astro.props;
 const siteUrl = 'https://frigidereieftine.ro';
-const now = new Date().toISOString();
+const now = modified ? `${modified}T08:00:00+03:00` : '2026-04-01T08:00:00+03:00';
 
 const websiteSchema = {
   '@context': 'https://schema.org',

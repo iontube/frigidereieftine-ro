@@ -32,7 +32,7 @@ import products from '../data/products.json';
               <td>{p.consumption}</td>
               <td>{p.noiseLevel}</td>
               <td>{p.height} × {p.width}</td>
-              <td><a href={`/out/${p.id}`} class="table-link" target="_blank" rel="nofollow noopener sponsored">Vezi oferta &rarr;</a></td>
+              <td><button class="table-link" data-o={Buffer.from(p.id,'utf8').toString('base64')} type="button">Vezi oferta &rarr;</button></td>
             </tr>
           ))}
         </tbody>
@@ -44,7 +44,7 @@ import products from '../data/products.json';
         <div class="compare-card">
           <div class="compare-card-top">
             <div class="compare-card-name">{p.name}</div>
-            <a href={`/out/${p.id}`} class="btn btn-primary btn-sm compare-card-btn" target="_blank" rel="nofollow noopener sponsored">Oferta</a>
+            <button class="btn btn-primary btn-sm compare-card-btn" data-o={Buffer.from(p.id,'utf8').toString('base64')} type="button">Oferta</button>
           </div>
           <div class="compare-card-specs">
             <span>{p.capacity}</span>

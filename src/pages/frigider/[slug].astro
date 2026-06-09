@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import FridgeCard from '../../components/FridgeCard.astro';
+import products from '../../data/frigidere.json';
+
+const MIN_BRAND = 4;
+const brandCount = {};
+for (const x of products) if (x.brandSlug) brandCount[x.brandSlug] = (brandCount[x.brandSlug] || 0) + 1;
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const money = (n) => Number(n).toLocaleString('ro-RO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' lei';
+const enc = (s) => Buffer.from(s, 'utf8').toString('base64');
+const year = new Date().getFullYear();
+const title = `${p.name} – preț și oferte ${year} | FrigidereIeftine.ro`;
+const desc = `${p.name}: ${p.offerCount > 1 ? `${p.offerCount} oferte, ` : ''}de la ${money(p.price)}. Capacitate, clasă energetică și unde îl cumperi cel mai ieftin.`;
+const hasBrandPage = p.brandSlug && brandCount[p.brandSlug] >= MIN_BRAND;
+const related = products.filter((x) => x.brandSlug === p.brandSlug && x.band === p.band && x.slug !== p.slug).slice(0, 8);
+const off = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+const prices = p.offers.map((o) => o.price);
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'Product', name: p.name, image: p.img, ...(p.brand ? { brand: { '@type': 'Brand', name: p.brand } } : {}), description: p.prose.intro.slice(0, 300),
+    offers: { '@type': 'AggregateOffer', priceCurrency: 'RON', lowPrice: Math.min(...prices).toFixed(2), highPrice: Math.max(...prices).toFixed(2), offerCount: p.offerCount, availability: 'https://schema.org/InStock', url: `https://frigidereieftine.ro/frigider/${p.slug}/` } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.prose.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Acasă', item: 'https://frigidereieftine.ro/' },
+    { '@type': 'ListItem', position: 2, name: 'Oferte frigidere', item: 'https://frigidereieftine.ro/oferte/' },
+    ...(hasBrandPage ? [{ '@type': 'ListItem', position: 3, name: p.brand, item: `https://frigidereieftine.ro/brand/${p.brandSlug}/` }] : []),
+    { '@type': 'ListItem', position: hasBrandPage ? 4 : 3, name: p.name, item: `https://frigidereieftine.ro/frigider/${p.slug}/` },
+  ] },
+];
+---
+<Layout title={title} description={desc} modified={p.modified}>
+  <Navigation />
+  <section class="section fr-sec">
+    <div class="container">
+      <nav class="crumb"><a href="/">Acasă</a> › <a href="/oferte/">Oferte frigidere</a> ›{hasBrandPage && <> <a href={`/brand/${p.brandSlug}/`}>{p.brand}</a> ›</>} <span>{p.name}</span></nav>
+
+      <article class="po">
+        <div class="po-media"><img src={p.img} alt={p.name} width="420" height="420" fetchpriority="high" decoding="async" /></div>
+        <div class="po-info">
+          <div class="po-tags">
+            {p.brand && (hasBrandPage ? <a class="po-brand" href={`/brand/${p.brandSlug}/`}>{p.brand}</a> : <span class="po-brand">{p.brand}</span>)}
+            <span class="po-type">{p.type}</span>
+          </div>
+          <h1 class="po-h1">{p.name}</h1>
+          <div class="po-price"><span class="po-from">{p.offerCount > 1 ? 'de la ' : ''}</span><span class="po-now">{money(p.price)}</span>{p.oldPrice && <s>{money(p.oldPrice)}</s>}{off > 0 && <span class="po-off">-{off}%</span>}</div>
+          <p class="po-stock">Cel mai mic preț la <a class="po-merch" href={`/magazin/${p.merchantSlug}/`}><strong>{p.merchantName}</strong></a></p>
+          <button class="po-cta btn btn-cta" data-o={enc(p.slug)} type="button">Vezi oferta la {p.merchantName} →</button>
+          <p class="po-note">Preț actualizat periodic · link afiliat</p>
+        </div>
+      </article>
+
+      {p.offers.length > 1 && (
+        <section class="po-block">
+          <span class="section-label">{p.offers.length} oferte</span>
+          <h2 class="section-title">Vezi oferta la fiecare magazin</h2>
+          <div class="offers">{p.offers.map((o, i) => (
+            <div class="offer">
+              <span class="offer-shop">{o.merchantName}</span>
+              <span class="offer-price">{money(o.price)}{o.oldPrice && <s>{money(o.oldPrice)}</s>}</span>
+              {i === 0 && <span class="offer-best">cel mai mic</span>}
+              <button class="offer-btn" data-o={enc(o.outKey)} type="button">Vezi oferta →</button>
+            </div>
+          ))}</div>
+        </section>
+      )}
+
+      <section class="po-block">
+        <span class="section-label">Despre</span>
+        <h2 class="section-title">Despre {p.name}</h2>
+        <div class="guide-content"><p>{p.prose.intro}</p>{p.prose.guide.map((g) => <p>{g}</p>)}</div>
+      </section>
+
+      <section class="po-block">
+        <span class="section-label">Specificații</span>
+        <h2 class="section-title">Specificații {p.name}</h2>
+        <table class="spec-tbl"><tbody>{Object.entries(p.specs).map(([k, v]) => <tr><th>{k}</th><td>{v}</td></tr>)}</tbody></table>
+      </section>
+
+      <section class="po-block po-faq">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">Întrebări frecvente despre {p.name}</h2>
+        <div class="faq-list">{p.prose.faq.map((f) => (
+          <div class="faq-item">
+            <div class="faq-q" role="button" tabindex="0" aria-expanded="false" data-faq>{f.q}</div>
+            <div class="faq-a">{f.a}</div>
+          </div>
+        ))}</div>
+      </section>
+
+      {related.length > 0 && (
+        <section class="po-block">
+          <span class="section-label">Similare</span>
+          <h2 class="section-title">Alte frigidere {p.brand} similare</h2>
+          <div class="products-grid">{related.map((r) => <FridgeCard p={r} />)}</div>
+        </section>
+      )}
+    </div>
+  </section>
+  <Footer />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script>
+    document.querySelectorAll('[data-faq]').forEach(function(q){function t(){var it=q.parentElement;it.classList.toggle('open');q.setAttribute('aria-expanded',it.classList.contains('open'));}q.addEventListener('click',t);q.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});});
+  </script>
+</Layout>

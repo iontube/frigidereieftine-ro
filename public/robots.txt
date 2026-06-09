@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /out/
 Allow: /
 
 Sitemap: https://frigidereieftine.ro/sitemap.xml

@@ -98,10 +98,10 @@ const reviewData = reviews as Record<string, {
           </div>
 
           <div class="review-cta">
-            <a href={`/out/${product.id}`} class="btn btn-cta btn-cta-lg" target="_blank" rel="nofollow noopener sponsored">
+            <button class="btn btn-cta btn-cta-lg" data-o={Buffer.from(product.id,'utf8').toString('base64')} type="button">
               <span>Verifica disponibilitate si pret</span>
               <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+            </button>
           </div>
         </article>
       );
