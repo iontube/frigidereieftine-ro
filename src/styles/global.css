@@ -240,7 +240,7 @@ td strong{color:var(--c-text);font-weight:600}
 
 /* ===== fridges feed catalog (tier-3): oferte / frigider / brand / magazin ===== */
 button.btn-cta,button.offer-btn,button.po-cta{border:none;cursor:pointer;font-family:inherit;-webkit-appearance:none;appearance:none}
-.fr-sec{padding-top:calc(72px + 1.4rem)}
+.fr-sec{padding-top:1.75rem;padding-bottom:3rem}
 .crumb{font-size:.82rem;color:var(--c-text-light);margin-bottom:1rem}
 .crumb a{color:var(--c-primary)}.crumb a:hover{text-decoration:underline}
 .fr-sec .section-label{margin-bottom:.5rem}
@@ -283,7 +283,7 @@ a.po-merch{color:var(--c-primary)}a.po-merch:hover{text-decoration:underline}
 .offer-best{font-size:.66rem;font-weight:700;text-transform:uppercase;color:var(--c-success);background:var(--c-primary-light);padding:.15rem .5rem;border-radius:50px}
 .offer-btn{margin-left:auto;background:var(--c-primary);color:#fff;font-weight:700;font-size:.85rem;padding:.55rem 1.1rem;border-radius:var(--radius-sm)}
 .offer-btn:hover{background:var(--c-primary-hover)}
-.spec-tbl{width:100%;border-collapse:collapse;max-width:560px}
+.spec-tbl{width:100%;min-width:0;border-collapse:collapse;max-width:560px}
 .spec-tbl th,.spec-tbl td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--c-border);font-size:.9rem}
 .spec-tbl th{color:var(--c-text-light);font-weight:600;width:42%}
 .spec-tbl td{color:var(--c-text);font-weight:700}
