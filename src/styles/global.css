@@ -270,7 +270,7 @@ a.po-brand:hover{text-decoration:underline}
 .po-off{background:var(--c-accent);color:#fff;font-weight:700;font-size:.78rem;padding:.15rem .5rem;border-radius:50px}
 .po-stock{color:var(--c-text-mid);font-size:.9rem;margin-bottom:.9rem}
 a.po-merch{color:var(--c-primary)}a.po-merch:hover{text-decoration:underline}
-.po-cta{margin-bottom:.5rem;width:auto}
+.po-cta{margin-bottom:.6rem;width:100%;max-width:420px}
 .po-note{font-size:.74rem;color:var(--c-text-light)}
 .po-block{margin-bottom:2rem}
 .po-back{margin-top:1.4rem;font-size:.9rem}.po-back a{color:var(--c-primary);font-weight:700}
